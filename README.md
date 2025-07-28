@@ -1,1 +1,1 @@
-# SOUL Autonomes Trading-Netzwerk
+# SOUL
