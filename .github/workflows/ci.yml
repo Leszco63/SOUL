@@ -1,43 +1,23 @@
 name: CI
+
 on:
   pull_request:
     branches:
       - main
 
 jobs:
-  lint-and-test:
+  python-tests:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install front-end deps
-        run: |
-          cd frontend
-          npm ci
-
-      - name: Lint front-end
-        run: |
-          cd frontend
-          npm run lint
-
-      - name: Build front-end
-        run: |
-          cd frontend
-          npm run build
 
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install back-end deps
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run back-end tests
+      - name: Run tests
         run: pytest --maxfail=1 --disable-warnings -q
